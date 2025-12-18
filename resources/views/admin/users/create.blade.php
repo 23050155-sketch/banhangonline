@@ -1,39 +1,61 @@
-<!doctype html>
-<html lang="vi">
-<head><meta charset="utf-8"><title>Tạo user</title></head>
-<body>
-<h1>Thêm user</h1>
-
 @if($errors->any())
-  <ul style="color:red">
-    @foreach($errors->all() as $e) <li>{{ $e }}</li> @endforeach
-  </ul>
+  <div class="alert error">
+    @foreach($errors->all() as $e) <div>{{ $e }}</div> @endforeach
+  </div>
 @endif
 
 <form method="POST" action="{{ route('admin.users.store') }}">
   @csrf
-  <p>Name</p><input name="name" value="{{ old('name') }}">
-  <p>Email</p><input name="email" type="email" value="{{ old('email') }}">
-  <p>Password</p><input name="password" type="password">
 
-  <p>Role</p>
-  <select name="role">
-    <option value="customer">customer</option>
-    <option value="admin">admin</option>
-  </select>
+  <div class="grid-2">
+    <div>
+      <label class="form-label">Name</label>
+      <input class="input" name="name" value="{{ old('name') }}">
+    </div>
 
-  <p>Status</p>
-  <select name="status">
-    <option value="1">active</option>
-    <option value="0">blocked</option>
-  </select>
+    <div>
+      <label class="form-label">Email</label>
+      <input class="input" name="email" type="email" value="{{ old('email') }}">
+    </div>
+  </div>
 
-  <p>Phone</p><input name="phone" value="{{ old('phone') }}">
-  <p>Address</p><input name="address" value="{{ old('address') }}">
+  <div style="margin-top:12px">
+    <label class="form-label">Password</label>
+    <input class="input" name="password" type="password" autocomplete="new-password">
+  </div>
 
-  <button type="submit">Lưu</button>
+  <div class="grid-2" style="margin-top:12px">
+    <div>
+      <label class="form-label">Role</label>
+      <select class="input" name="role">
+        <option value="customer" {{ old('role')==='customer' ? 'selected' : '' }}>customer</option>
+        <option value="admin" {{ old('role')==='admin' ? 'selected' : '' }}>admin</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="form-label">Status</label>
+      <select class="input" name="status">
+        <option value="1" {{ old('status','1')=='1' ? 'selected' : '' }}>active</option>
+        <option value="0" {{ old('status')=='0' ? 'selected' : '' }}>blocked</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:12px">
+    <div>
+      <label class="form-label">Phone</label>
+      <input class="input" name="phone" value="{{ old('phone') }}">
+    </div>
+
+    <div>
+      <label class="form-label">Address</label>
+      <input class="input" name="address" value="{{ old('address') }}">
+    </div>
+  </div>
+
+  <div style="margin-top:14px;display:flex;gap:10px;justify-content:flex-end">
+    <button class="btn" type="submit">Lưu</button>
+    <button class="btn btn-outline" type="button" onclick="closeModal()">Hủy</button>
+  </div>
 </form>
-
-<p><a href="{{ route('admin.users.index') }}">← Quay lại</a></p>
-</body>
-</html>

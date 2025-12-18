@@ -1,50 +1,69 @@
-<!doctype html>
-<html lang="vi">
-<head>
-    <meta charset="utf-8">
-    <title>Đơn hàng</title>
-</head>
-<body>
-    <h1>Danh sách đơn hàng</h1>
+@extends('layouts.admin')
+@section('title','Admin - Đơn hàng')
+@section('page_title','Quản lý đơn hàng')
 
-    @if(session('success'))
-        <p style="color:green">{{ session('success') }}</p>
-    @endif
+@section('content')
+<div class="card">
+  <div class="card-header">
+    <b>Danh sách đơn hàng</b>
+  </div>
 
-    @if($orders->count() == 0)
-        <p>Chưa có đơn hàng nào.</p>
-    @else
-        <table border="1" cellpadding="8" cellspacing="0">
-            <tr>
-                <th>ID</th>
-                <th>Khách hàng</th>
-                <th>Điện thoại</th>
-                <th>Tổng tiền</th>
-                <th>Thanh toán</th>
-                <th>Trạng thái</th>
-                <th>Ngày tạo</th>
-                <th>Hành động</th>
-            </tr>
+  <div class="card-body table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Khách hàng</th>
+          <th>Điện thoại</th>
+          <th>Tổng tiền</th>
+          <th>Thanh toán</th>
+          <th>Trạng thái</th>
+          <th>Ngày tạo</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
 
-            @foreach($orders as $o)
-                <tr>
-                    <td>#{{ $o->id }}</td>
-                    <td>{{ $o->customer_name }}</td>
-                    <td>{{ $o->customer_phone }}</td>
-                    <td>{{ number_format($o->total) }} đ</td>
-                    <td>{{ strtoupper($o->payment_method) }}</td>
-                    <td>{{ $o->status }}</td>
-                    <td>{{ $o->created_at->format('d/m/Y H:i') }}</td>
-                    <td>
-                        <a href="{{ route('admin.orders.show', $o->id) }}">Xem</a>
-                    </td>
-                </tr>
-            @endforeach
-        </table>
+      <tbody>
+        @forelse($orders as $o)
+          <tr>
+            <td>#{{ $o->id }}</td>
+            <td>{{ $o->customer_name }}</td>
+            <td>{{ $o->customer_phone }}</td>
+            <td>{{ number_format($o->total) }} đ</td>
+            <td>{{ strtoupper($o->payment_method) }}</td>
+            <td>{{ $o->status }}</td>
+            <td>{{ $o->created_at?->format('d/m/Y H:i') }}</td>
+            <td>
+                <a class="btn btn-outline" href="javascript:void(0)"
+                    onclick="openModal('{{ route('admin.orders.show', $o->id) }}','Chi tiết đơn #{{ $o->id }}')">
+                    Xem
+                </a>
+            </td>
+          </tr>
+        @empty
+          <tr>
+            <td colspan="8" style="color:var(--muted)">Chưa có đơn hàng nào.</td>
+          </tr>
+        @endforelse
+      </tbody>
+    </table>
+  </div>
 
-        <div style="margin-top:12px">
-            {{ $orders->links() }}
-        </div>
-    @endif
-</body>
-</html>
+  @if(method_exists($orders,'links'))
+    <div class="card-body" style="border-top:1px solid var(--line)">
+      {{ $orders->links() }}
+    </div>
+  @endif
+</div>
+<div class="modal" id="productModal">
+  <div class="modal-backdrop"></div>
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="modalTitle">---</h3>
+      <button class="icon-btn" type="button" onclick="closeModal()">✖</button>
+    </div>
+    <div class="modal-body" id="modalContent">Loading...</div>
+  </div>
+</div>
+
+@endsection
