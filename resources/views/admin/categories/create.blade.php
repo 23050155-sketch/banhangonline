@@ -1,37 +1,28 @@
-<!doctype html>
-<html lang="vi">
-<head>
-    <meta charset="utf-8">
-    <title>Thêm danh mục</title>
-</head>
-<body>
-    <h1>Thêm danh mục</h1>
+@if($errors->any())
+  <div class="alert error">
+    @foreach($errors->all() as $e)
+      <div>{{ $e }}</div>
+    @endforeach
+  </div>
+@endif
 
-    @if($errors->any())
-        <ul style="color: red">
-            @foreach($errors->all() as $e)
-                <li>{{ $e }}</li>
-            @endforeach
-        </ul>
-    @endif
+<form method="POST" action="{{ route('admin.categories.store') }}">
+  @csrf
 
-    <form method="POST" action="{{ route('admin.categories.store') }}">
-        @csrf
+  <div>
+    <label class="form-label">Tên danh mục</label>
+    <input class="input" type="text" name="name" value="{{ old('name') }}" placeholder="VD: Laptop, Điện thoại...">
+  </div>
 
-        <p>
-            <label>Tên danh mục</label><br>
-            <input type="text" name="name" value="{{ old('name') }}">
-        </p>
+  <div style="margin-top:12px">
+    <label style="display:flex;gap:10px;align-items:center">
+      <input type="checkbox" name="status" value="1" checked>
+      <span>Hiển thị</span>
+    </label>
+  </div>
 
-        <p>
-            <label>
-                <input type="checkbox" name="status" value="1" checked>
-                Hiển thị
-            </label>
-        </p>
-
-        <button type="submit">Lưu</button>
-        <a href="{{ route('admin.categories.index') }}">Quay lại</a>
-    </form>
-</body>
-</html>
+  <div style="margin-top:14px;display:flex;gap:10px;justify-content:flex-end">
+    <button class="btn" type="submit">Lưu</button>
+    <button class="btn btn-outline" type="button" onclick="closeModal()">Hủy</button>
+  </div>
+</form>

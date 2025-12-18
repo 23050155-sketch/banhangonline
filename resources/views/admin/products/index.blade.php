@@ -3,7 +3,7 @@
 @section('page_title','Quản lý sản phẩm')
 
 @section('page_actions')
-  <a class="btn" href="javascript:void(0)"
+<a class="btn" href="javascript:void(0)"
     onclick="openModal('{{ route('admin.products.create') }}','Thêm sản phẩm')">
     <i class="fa-solid fa-plus"></i> Thêm
 </a>

@@ -97,8 +97,6 @@
     if(!manageMenu) return;
     manageMenu.style.display = (manageMenu.style.display === 'none') ? 'block' : 'none';
   });
-<script>
-    
 </script>
 
 <script src="{{ asset('js/admin.js') }}?v={{ time() }}"></script>

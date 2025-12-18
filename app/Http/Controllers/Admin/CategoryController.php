@@ -58,12 +58,12 @@ class CategoryController extends Controller
             'status' => $request->boolean('status'),
         ]);
 
-        return redirect()->route('categories.index')->with('success', 'Cập nhật danh mục thành công!');
+        return redirect()->route('admin.categories.index')->with('success', 'Cập nhật danh mục thành công!');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->route('categories.index')->with('success', 'Xóa danh mục thành công!');
+        return redirect()->route('admin.categories.index')->with('success', 'Xóa danh mục thành công!');
     }
 }
