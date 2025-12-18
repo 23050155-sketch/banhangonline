@@ -1,73 +1,69 @@
-<!doctype html>
-<html lang="vi">
-<head>
-    <meta charset="utf-8">
-    <title>Thêm mã giảm giá</title>
-</head>
-<body>
-
-<h1>Thêm mã giảm giá</h1>
-
-<a href="{{ route('admin.coupons.index') }}">← Quay lại</a>
-
 @if ($errors->any())
-    <ul style="color:red">
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
+  <div class="alert error">
+    @foreach ($errors->all() as $error)
+      <div>{{ $error }}</div>
+    @endforeach
+  </div>
 @endif
 
 <form method="POST" action="{{ route('admin.coupons.store') }}">
-    @csrf
+  @csrf
 
-    <p>
-        Mã coupon:<br>
-        <input name="code" required>
-    </p>
+  <div class="grid-2">
+    <div>
+      <label class="form-label">Mã coupon</label>
+      <input class="input" name="code" value="{{ old('code') }}" required placeholder="VD: SALE10, FREESHIP...">
+    </div>
 
-    <p>
-        Loại giảm:<br>
-        <select name="type">
-            <option value="percent">Giảm %</option>
-            <option value="fixed">Giảm tiền</option>
-        </select>
-    </p>
+    <div>
+      <label class="form-label">Loại giảm</label>
+      <select class="input" name="type">
+        <option value="percent" @selected(old('type')==='percent')>Giảm %</option>
+        <option value="fixed" @selected(old('type')==='fixed')>Giảm tiền</option>
+      </select>
+    </div>
+  </div>
 
-    <p>
-        Giá trị:<br>
-        <input type="number" name="value" required>
-    </p>
+  <div class="grid-2" style="margin-top:12px">
+    <div>
+      <label class="form-label">Giá trị</label>
+      <input class="input" type="number" name="value" value="{{ old('value') }}" required>
+    </div>
 
-    <p>
-        Đơn tối thiểu:<br>
-        <input type="number" name="min_order">
-    </p>
+    <div>
+      <label class="form-label">Đơn tối thiểu</label>
+      <input class="input" type="number" name="min_order" value="{{ old('min_order') }}" placeholder="0 nếu không giới hạn">
+    </div>
+  </div>
 
-    <p>
-        Số lượt dùng:<br>
-        <input type="number" name="max_uses">
-    </p>
+  <div class="grid-2" style="margin-top:12px">
+    <div>
+      <label class="form-label">Số lượt dùng</label>
+      <input class="input" type="number" name="max_uses" value="{{ old('max_uses') }}" placeholder="Để trống = không giới hạn">
+    </div>
 
-    <p>
-        Bắt đầu:<br>
-        <input type="date" name="starts_at" required>
-    </p>
+    <div style="display:flex;gap:10px;align-items:center;padding-top:26px">
+      <label style="display:flex;gap:8px;align-items:center;color:rgba(255,255,255,.8)">
+        <input type="checkbox" name="is_active" value="1" {{ old('is_active', 1) ? 'checked' : '' }}>
+        Kích hoạt
+      </label>
+    </div>
+  </div>
 
-    <p>
-        Kết thúc:<br>
-        <input type="date" name="ends_at">
-    </p>
+  <div class="grid-2" style="margin-top:12px">
+    <div>
+      <label class="form-label">Bắt đầu</label>
+      <input class="input" type="date" name="starts_at" value="{{ old('starts_at') }}" required>
+    </div>
 
-    <p>
-        <label>
-            <input type="checkbox" name="is_active" value="1" checked>
-            Kích hoạt
-        </label>
-    </p>
+    <div>
+      <label class="form-label">Kết thúc</label>
+      <input class="input" type="date" name="ends_at" value="{{ old('ends_at') }}">
+    </div>
+  </div>
 
-    <button type="submit">Lưu coupon</button>
+  <div style="margin-top:14px;display:flex;gap:10px;justify-content:flex-end">
+    <button class="btn" type="submit">Lưu coupon</button>
+    <button class="btn btn-outline" type="button" onclick="closeModal()">Hủy</button>
+  </div>
 </form>
-
-</body>
-</html>
