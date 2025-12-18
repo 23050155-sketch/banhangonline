@@ -10,11 +10,30 @@ use Illuminate\Support\Facades\DB;
 class OrderController extends Controller
 {
     // GET /admin/orders
-    public function index()
-    {
-        $orders = Order::latest()->paginate(10);
-        return view('admin.orders.index', compact('orders'));
+    public function index(Request $request)
+{
+    $orderId = $request->query('order_id');
+    $from = $request->query('from_date');
+    $to = $request->query('to_date');
+
+    $query = Order::query()->latest();
+
+    if ($orderId) {
+        $query->where('id', (int)$orderId);
     }
+
+    if ($from) {
+        $query->whereDate('created_at', '>=', $from);
+    }
+
+    if ($to) {
+        $query->whereDate('created_at', '<=', $to);
+    }
+
+    $orders = $query->paginate(10)->appends($request->query());
+
+    return view('admin.orders.index', compact('orders'));
+}
 
     // GET /admin/orders/{order}
     public function show(Order $order)

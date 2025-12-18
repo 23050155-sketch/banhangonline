@@ -9,6 +9,25 @@
   </div>
 
   <div class="card-body table-wrap">
+    <div class="card-body" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center">
+      <form method="GET" action="{{ route('admin.orders.index') }}"
+          style="margin-bottom:16px; display:flex; gap:12px; flex-wrap:wrap; align-items:center">
+            <input class="input" type="date" name="from_date"
+                  value="{{ request('from_date') }}" style="max-width:200px">
+
+            <input class="input" type="date" name="to_date"
+                  value="{{ request('to_date') }}" style="max-width:200px">
+            <input class="input" type="number" name="order_id"
+                  placeholder="Tìm theo ID (vd: 12)"
+                  value="{{ request('order_id') }}" style="max-width:220px">
+            <button class="btn" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i> Lọc
+      </button>
+
+      <a class="btn btn-outline" href="{{ route('admin.orders.index') }}">Reset</a>
+    </form>
+    </div>
+
     <table class="table">
       <thead>
         <tr>

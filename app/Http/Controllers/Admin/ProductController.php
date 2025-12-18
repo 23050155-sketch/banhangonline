@@ -12,11 +12,23 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('category')->latest()->paginate(10);
-        return view('admin.products.index', compact('products'));
+        $q = $request->query('q', '');
+        $categoryId = $request->query('category_id', '');
+
+        $products = Product::with('category')
+            ->when($q !== '', fn($qr) => $qr->where('name', 'like', "%{$q}%"))
+            ->when($categoryId !== '', fn($qr) => $qr->where('category_id', $categoryId))
+            ->latest()
+            ->paginate(10)
+            ->appends($request->query());
+
+        $categories = Category::orderBy('name')->get();
+
+        return view('admin.products.index', compact('products', 'categories', 'q', 'categoryId'));
     }
+
 
     public function create()
     {

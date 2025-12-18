@@ -11,9 +11,26 @@
 
 @section('content')
 <div class="card">
-  <div class="card-header">
-    <b>Danh sách sản phẩm</b>
-  </div>
+  <div class="card-header" style="gap:12px">
+  <b>Danh sách sản phẩm</b>
+
+  <form method="GET" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+    <input class="input" name="q" value="{{ $q }}" placeholder="Tìm theo tên..." style="width:220px">
+
+    <select class="input" name="category_id" style="width:220px">
+      <option value="">-- Tất cả danh mục --</option>
+      @foreach($categories as $c)
+        <option value="{{ $c->id }}" @selected((string)$categoryId === (string)$c->id)>
+          {{ $c->name }}
+        </option>
+      @endforeach
+    </select>
+
+    <button class="btn" type="submit"><i class="fa-solid fa-filter"></i> Lọc</button>
+    <a class="btn btn-outline" href="{{ route('admin.products.index') }}">Reset</a>
+  </form>
+</div>
+
 
   <div class="card-body table-wrap">
     <table class="table">
