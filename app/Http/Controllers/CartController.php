@@ -90,7 +90,7 @@ class CartController extends Controller
             ]);
         }
 
-        return redirect()->route('cart.index')->with('success', 'Đã thêm vào giỏ!');
+        return redirect()->route('cart.index')->with('success', 'Đã thêm vào giỏ hàng!');
     }
 
     public function update(Request $request, Product $product)

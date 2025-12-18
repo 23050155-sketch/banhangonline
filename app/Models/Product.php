@@ -26,5 +26,9 @@ class Product extends Model
         return $this->reviews()->where('status', 1)->avg('rating');
     }
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
     
 }

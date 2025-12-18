@@ -26,7 +26,7 @@
 
 <p>
     <a href="{{ route('cart.index') }}">Về giỏ hàng</a> |
-    <a href="{{ route('orders.index') }}">Admin xem đơn (nếu bạn cho phép)</a>
+    <a href="{{ route('admin.orders.index') }}">Admin xem đơn (nếu bạn cho phép)</a>
 </p>
 </body>
 </html>
