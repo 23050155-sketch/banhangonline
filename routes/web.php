@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ReviewAdminController;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\Admin\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -138,6 +139,8 @@ Route::prefix('admin')
         Route::get('dashboard', function () {
             return view('admin.dashboard');
         })->name('dashboard');
+
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     });
 

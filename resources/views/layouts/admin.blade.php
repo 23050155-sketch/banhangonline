@@ -13,41 +13,45 @@
 
   <aside class="sidebar" id="sidebar">
     <div class="brand">
-      <div class="logo">SHOP ADMIN</div>
+      <div class="logo">SHOP KDB</div>
       <div class="sub">Admin Panel</div>
     </div>
 
     <a class="nav {{ request()->routeIs('admin.dashboard')?'active':'' }}"
-       href="{{ route('admin.dashboard') }}">
+      href="{{ route('admin.dashboard') }}">
       <i class="fa-solid fa-gauge"></i><span>Dashboard</span>
     </a>
 
-    <div class="nav-group">
-      <button class="nav-parent" type="button" id="manageToggle">
-        <span><i class="fa-solid fa-gear"></i> Quản lý</span>
-        <i class="fa-solid fa-chevron-down"></i>
-      </button>
+    <a class="nav {{ request()->routeIs('admin.users.*')?'active':'' }}"
+      href="{{ route('admin.users.index') }}">
+      <i class="fa-solid fa-users"></i><span>User</span>
+    </a>
 
-      <div class="nav-children" id="manageMenu">
-        <a class="nav {{ request()->routeIs('admin.users.*')?'active':'' }}"
-           href="{{ route('admin.users.index') }}"><i class="fa-solid fa-users"></i><span>User</span></a>
+    <a class="nav {{ request()->routeIs('admin.categories.*')?'active':'' }}"
+      href="{{ route('admin.categories.index') }}">
+      <i class="fa-solid fa-list"></i><span>Danh mục</span>
+    </a>
 
-        <a class="nav {{ request()->routeIs('admin.categories.*')?'active':'' }}"
-           href="{{ route('admin.categories.index') }}"><i class="fa-solid fa-list"></i><span>Danh mục</span></a>
+    <a class="nav {{ request()->routeIs('admin.products.*')?'active':'' }}"
+      href="{{ route('admin.products.index') }}">
+      <i class="fa-solid fa-box"></i><span>Sản phẩm</span>
+    </a>
 
-        <a class="nav {{ request()->routeIs('admin.products.*')?'active':'' }}"
-           href="{{ route('admin.products.index') }}"><i class="fa-solid fa-box"></i><span>Sản phẩm</span></a>
+    <a class="nav {{ request()->routeIs('admin.orders.*')?'active':'' }}"
+      href="{{ route('admin.orders.index') }}">
+      <i class="fa-solid fa-receipt"></i><span>Đơn hàng</span>
+    </a>
 
-        <a class="nav {{ request()->routeIs('admin.orders.*')?'active':'' }}"
-           href="{{ route('admin.orders.index') }}"><i class="fa-solid fa-receipt"></i><span>Đơn hàng</span></a>
+    <a class="nav {{ request()->routeIs('admin.coupons.*')?'active':'' }}"
+      href="{{ route('admin.coupons.index') }}">
+      <i class="fa-solid fa-ticket"></i><span>Coupon</span>
+    </a>
 
-        <a class="nav {{ request()->routeIs('admin.coupons.*')?'active':'' }}"
-           href="{{ route('admin.coupons.index') }}"><i class="fa-solid fa-ticket"></i><span>Coupon</span></a>
+    <a class="nav {{ request()->routeIs('admin.reviews.*')?'active':'' }}"
+      href="{{ route('admin.reviews.index') }}">
+      <i class="fa-solid fa-star"></i><span>Đánh giá</span>
+    </a>
 
-        <a class="nav {{ request()->routeIs('admin.reviews.*')?'active':'' }}"
-           href="{{ route('admin.reviews.index') }}"><i class="fa-solid fa-star"></i><span>Đánh giá</span></a>
-      </div>
-    </div>
   </aside>
 
   <main class="main">
@@ -84,20 +88,7 @@
 
 </div>
 
-<script>
-  const sidebarBtn = document.getElementById('sidebarBtn');
-  const sidebar = document.getElementById('sidebar');
-  sidebarBtn?.addEventListener('click', ()=> sidebar.classList.toggle('open'));
 
-  const manageToggle = document.getElementById('manageToggle');
-  const manageMenu = document.getElementById('manageMenu');
-  const hasActive = manageMenu?.querySelector('.active');
-  if(!hasActive && manageMenu) manageMenu.style.display = 'none';
-  manageToggle?.addEventListener('click', ()=>{
-    if(!manageMenu) return;
-    manageMenu.style.display = (manageMenu.style.display === 'none') ? 'block' : 'none';
-  });
-</script>
 
 <script src="{{ asset('js/admin.js') }}?v={{ time() }}"></script>
 @stack('scripts')

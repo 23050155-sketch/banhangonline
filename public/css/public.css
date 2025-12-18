@@ -2462,7 +2462,7 @@ textarea[name="content"]:focus {
 
 
 
-    .product-detail { padding: 28px 0; }
+.product-detail { padding: 28px 0; }
 .pd-breadcrumb { font-size: 14px; opacity: .85; margin-bottom: 16px; display:flex; gap:8px; flex-wrap:wrap; }
 .pd-breadcrumb a { text-decoration:none; }
 .pd-grid { display:grid; grid-template-columns: 1fr 1.1fr; gap: 24px; }
@@ -2663,4 +2663,8 @@ textarea[name="content"]:focus {
 
 
 
+.nav-group{margin-top:10px}
+.nav-parent{...}
+.nav-children{...}
+.nav-children .nav{...}
 
