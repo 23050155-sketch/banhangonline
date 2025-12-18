@@ -1,61 +1,96 @@
-<!doctype html>
-<html lang="vi">
-<head><meta charset="utf-8"><title>Sửa sản phẩm</title></head>
-<body>
-<h1>Sửa sản phẩm</h1>
-
+{{-- resources/views/admin/products/edit.blade.php --}}
 @if($errors->any())
-<ul style="color:red">
-@foreach($errors->all() as $e) <li>{{ $e }}</li> @endforeach
-</ul>
+  <div class="alert error" style="margin-bottom:12px">
+    <ul style="margin:0; padding-left:18px">
+      @foreach($errors->all() as $e) <li>{{ $e }}</li> @endforeach
+    </ul>
+  </div>
 @endif
 
 <form method="POST" action="{{ route('admin.products.update', $product->id) }}" enctype="multipart/form-data">
-    @csrf
-    @method('PUT')
+  @csrf
+  @method('PUT')
 
-    <p>
-        <label>Danh mục</label><br>
-        <select name="category_id">
-            @foreach($categories as $c)
-                <option value="{{ $c->id }}" {{ $product->category_id == $c->id ? 'selected' : '' }}>
-                    {{ $c->name }}
-                </option>
-            @endforeach
-        </select>
-    </p>
-
-    <div class="mb-3">
-        <label class="form-label">Thương hiệu</label><br>
-        <input type="text" name="brand" class="form-control"
-            value="{{ old('brand', $product->brand) }}"
-            placeholder="VD: Apple, Samsung, Xiaomi">
+  <div style="display:grid; gap:10px">
+    <div>
+      <label class="form-label">Danh mục</label>
+      <select name="category_id" class="input">
+        @foreach($categories as $c)
+          <option value="{{ $c->id }}" @selected(old('category_id', $product->category_id) == $c->id)>
+            {{ $c->name }}
+          </option>
+        @endforeach
+      </select>
     </div>
 
-    <p><label>Tên sản phẩm</label><br><input name="name" value="{{ old('name', $product->name) }}"></p>
-    <p><label>Giá</label><br><input name="price" value="{{ old('price', $product->price) }}"></p>
-    <p><label>Giá gốc (tuỳ chọn)</label><br><input name="compare_price" value="{{ old('compare_price', $product->compare_price) }}"></p>
-    <p><label>Tồn kho</label><br><input name="stock" value="{{ old('stock', $product->stock) }}"></p>
-    <p><label>Mô tả</label><br><textarea name="description">{{ old('description', $product->description) }}</textarea></p>
+    <div>
+      <label class="form-label">Thương hiệu</label>
+      <input type="text" name="brand" class="input"
+             value="{{ old('brand', $product->brand) }}"
+             placeholder="VD: Apple, Samsung, Xiaomi">
+    </div>
 
-    <p>
-        <label>Ảnh hiện tại:</label><br>
+    <div>
+      <label class="form-label">Tên sản phẩm</label>
+      <input name="name" class="input" value="{{ old('name', $product->name) }}">
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px">
+      <div>
+        <label class="form-label">Giá</label>
+        <input name="price" class="input" value="{{ old('price', $product->price) }}">
+      </div>
+      <div>
+        <label class="form-label">Giá gốc (tuỳ chọn)</label>
+        <input name="compare_price" class="input" value="{{ old('compare_price', $product->compare_price) }}">
+      </div>
+    </div>
+
+    <div>
+      <label class="form-label">Tồn kho</label>
+      <input name="stock" class="input" value="{{ old('stock', $product->stock) }}">
+    </div>
+
+    <div>
+      <label class="form-label">Mô tả</label>
+      <textarea name="description" class="input" rows="4">{{ old('description', $product->description) }}</textarea>
+    </div>
+
+    <div>
+      <label class="form-label">Ảnh hiện tại</label>
+      <div style="margin-top:6px">
         @if($product->image)
-            <img src="{{ asset('storage/'.$product->image) }}" width="120">
+          <img src="{{ asset('storage/'.$product->image) }}" width="120" style="border-radius:10px">
         @else
-            <i>Chưa có ảnh</i>
+          <i>Chưa có ảnh</i>
         @endif
-    </p>
+      </div>
+    </div>
 
-    <p><label>Đổi ảnh</label><br><input type="file" name="image"></p>
+    <div>
+      <label class="form-label">Đổi ảnh</label>
+      <input type="file" name="image" class="input">
+    </div>
 
-    <p>
-        <label><input type="checkbox" name="status" value="1" {{ $product->status ? 'checked' : '' }}> Đang bán</label>
-        <label><input type="checkbox" name="is_featured" value="1" {{ $product->is_featured ? 'checked' : '' }}> Nổi bật</label>
-    </p>
+    <div style="display:flex; gap:14px; align-items:center; flex-wrap:wrap">
+      <label style="display:flex; gap:8px; align-items:center">
+        <input type="checkbox" name="status" value="1" @checked(old('status', $product->status))>
+        Đang bán
+      </label>
 
-    <button type="submit">Cập nhật</button>
-    <a href="{{ route('admin.products.index') }}">Quay lại</a>
+      <label style="display:flex; gap:8px; align-items:center">
+        <input type="checkbox" name="is_featured" value="1" @checked(old('is_featured', $product->is_featured))>
+        Nổi bật
+      </label>
+    </div>
+
+    <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:6px">
+      <button class="btn" type="submit">
+        <i class="fa-solid fa-floppy-disk"></i> Cập nhật
+      </button>
+      <button class="btn btn-outline" type="button" onclick="closeModal()">
+        Hủy
+      </button>
+    </div>
+  </div>
 </form>
-</body>
-</html>

@@ -1,49 +1,64 @@
-<!doctype html>
-<html lang="vi">
-<head><meta charset="utf-8"><title>Sản phẩm</title></head>
-<body>
-<h1>Danh sách sản phẩm</h1>
+@extends('layouts.admin')
+@section('title','Admin - Sản phẩm')
+@section('page_title','Quản lý sản phẩm')
 
-<p><a href="{{ route('admin.products.create') }}">+ Thêm sản phẩm</a></p>
-@if(session('success')) <p style="color:green">{{ session('success') }}</p> @endif
+@section('page_actions')
+  <a class="btn" href="javascript:void(0)"
+    onclick="openModal('{{ route('admin.products.create') }}','Thêm sản phẩm')">
+    <i class="fa-solid fa-plus"></i> Thêm
+</a>
+@endsection
 
-<table border="1" cellpadding="8" cellspacing="0">
-    <tr>
-        <th>ID</th><th>Ảnh</th><th>Tên</th><th>Danh mục</th><th>Giá</th><th>Tồn</th><th>Hành động</th>
-    </tr>
-    @foreach($products as $p)
-    <tr>
-        <td>{{ $p->id }}</td>
-        <td>
-            @if($p->image)
-                <img src="{{ asset('storage/'.$p->image) }}" width="60">
-            @endif
-        </td>
-        <td>
-            <a href="{{ route('admin.products.show', $p->id) }}">
-                {{ $p->name }}
+@section('content')
+<div class="card">
+  <div class="card-header">
+    <b>Danh sách sản phẩm</b>
+  </div>
+
+  <div class="card-body table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th><th>Tên</th><th>Giá</th><th>Tồn</th><th>Nổi bật</th><th>Trạng thái</th><th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($products as $p)
+          <tr>
+            <td>{{ $p->id }}</td>
+            <td>{{ $p->name }}</td>
+            <td>{{ number_format($p->price) }} đ</td>
+            <td>{{ $p->stock }}</td>
+            <td>{{ $p->is_featured ? '✅' : '—' }}</td>
+            <td>{{ $p->status ? 'Hiện' : 'Ẩn' }}</td>
+            <td>
+            <a class="btn btn-outline" href="javascript:void(0)"
+                onclick="openModal('{{ route('admin.products.edit',$p->id) }}','Sửa sản phẩm')">
+                Sửa
             </a>
-        </td>
 
-        <td>{{ $p->category?->name }}</td>
-        <td>{{ number_format($p->price) }} đ</td>
-        <td>{{ $p->stock }}</td>
-        <td>
-            <a href="{{ route('admin.products.edit', $p->id) }}">Sửa</a>
-            <form action="{{ route('admin.products.destroy', $p->id) }}" method="POST" style="display:inline">
-                @csrf @method('DELETE')
-                <button onclick="return confirm('Xóa sản phẩm này nha?')" type="submit">Xóa</button>
-            </form>
-            <form action="{{ route('cart.add', $p->id) }}" method="POST" style="display:inline">
-                @csrf
-                <input type="hidden" name="quantity" value="1">
-                <button type="submit">Thêm vào giỏ</button>
-            </form>
-        </td>
-    </tr>
-    @endforeach
-</table>
+            </td>
+          </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
+</div>
 
-<div style="margin-top:12px">{{ $products->links() }}</div>
-</body>
-</html>
+<div class="modal" id="productModal">
+  <div class="modal-backdrop"></div>
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="modalTitle">---</h3>
+      <button class="icon-btn" onclick="closeModal()">✖</button>
+    </div>
+    <div class="modal-body" id="modalContent">
+      Loading...
+    </div>
+  </div>
+</div>
+
+
+@endsection
+
+

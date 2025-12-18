@@ -104,7 +104,8 @@ Route::prefix('admin')
         Route::resource('categories', CategoryController::class);
 
         // Products (ADMIN)
-        Route::resource('products', AdminProductController::class);
+        Route::resource('products', AdminProductController::class)
+            ->parameters(['products' => 'product:id']);
 
         // Orders
         Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
@@ -133,6 +134,11 @@ Route::prefix('admin')
             ->name('reviews.toggle');
         Route::delete('reviews/{review}', [ReviewAdminController::class, 'destroy'])
             ->name('reviews.destroy');
+
+        Route::get('dashboard', function () {
+            return view('admin.dashboard');
+        })->name('dashboard');
+
     });
 
 
@@ -164,5 +170,4 @@ Route::prefix('admin')
 
 
 
-
-    
+   
