@@ -36,10 +36,7 @@
             @endif
           @endif
         </p>
-     
-
     
-
     {{-- RESULTS --}}
     <div class="product-grid-home">
       @forelse($products as $p)

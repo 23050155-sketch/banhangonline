@@ -69,16 +69,40 @@
 
                 <div class="header-actions">
                     @auth
-                        <span>{{ auth()->user()->name }}</span>
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button class="login-btn">Đăng xuất</button>
-                        </form>
-                    @else
+                        <div class="user-menu">
+                            <button type="button" class="user-btn">
+                            <i class="fas fa-user"></i>
+                            {{ auth()->user()->name }}
+                            <i class="fas fa-chevron-down caret"></i>
+                            </button>
+
+                            <div class="user-dropdown">
+                            <a href="{{ route('profile.show') }}" class="ud-item">
+                                <i class="fas fa-id-card"></i> Hồ sơ cá nhân
+                            </a>
+
+                            <a href="{{ route('orders.history') }}" class="ud-item">
+                                <i class="fas fa-receipt"></i> Lịch sử đơn hàng
+                            </a>
+
+
+                            <div class="ud-line"></div>
+
+                            <form action="{{ route('logout') }}" method="POST" class="ud-form">
+                                @csrf
+                                <button type="submit" class="ud-item ud-logout">
+                                <i class="fas fa-right-from-bracket"></i> Đăng xuất
+                                </button>
+                            </form>
+                            </div>
+                        </div>
+                        @else
                         <a href="{{ route('login') }}" class="login-btn">
                             <i class="fas fa-user"></i> Đăng nhập
                         </a>
                     @endauth
+
+
 
                     <button class="header-action"
                         onclick="window.location.href='{{ route('cart.index') }}'">

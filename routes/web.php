@@ -12,7 +12,9 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProductController as PublicProductController;
-
+use App\Http\Controllers\PublicController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\OrderController;
 /*
 |--------------------------------------------------------------------------
 | ADMIN CONTROLLERS
@@ -20,11 +22,10 @@ use App\Http\Controllers\ProductController as PublicProductController;
 */
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
-use App\Http\Controllers\Admin\OrderController;
+
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ReviewAdminController;
-use App\Http\Controllers\PublicController;
 use App\Http\Controllers\Admin\DashboardController;
 
 /*
@@ -199,10 +200,10 @@ Route::prefix('admin')
     Route::get('/laptops', [PublicController::class, 'laptops'])->name('laptops.page');
     Route::get('/clothes', [PublicController::class, 'clothes'])->name('clothes.page');
     Route::get('/cars',    [PublicController::class, 'cars'])->name('cars.page');
+    Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::post('/profile', [ProfileController::class, 'updateInfo'])->name('profile.update');
+    Route::post('/profile/password', [ProfileController::class, 'changePassword'])->name('profile.password');
+    Route::get('/my-orders', [OrderController::class, 'myOrders'])->name('orders.history');
+});
 
-
-    
-
-
-
-   
