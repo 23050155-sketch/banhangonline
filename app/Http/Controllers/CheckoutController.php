@@ -256,4 +256,28 @@ class CheckoutController extends Controller
         $order->load('items.product');
         return view('checkout.success', compact('order'));
     }
+
+
+    public function myOrders()
+    {
+        $orders = Order::where('user_id', Auth::id())
+            ->withCount('items')
+            ->orderByDesc('created_at')
+            ->get();
+
+        return view('orders.my', compact('orders'));
+    }
+
+    public function showOrder(Order $order)
+    {
+        // chặn xem đơn người khác
+        if ($order->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $order->load('items.product');
+
+        return view('orders.show', compact('order'));
+    }
+
 }

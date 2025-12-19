@@ -99,8 +99,10 @@ Route::delete('/gio-hang/xoa-het', [CartController::class, 'clear'])->name('cart
 | Checkout
 |--------------------------------------------------------------------------
 */
-Route::get('/thanh-toan', [CheckoutController::class, 'form'])->name('checkout.form');
-Route::post('/thanh-toan', [CheckoutController::class, 'place'])->name('checkout.place');
+Route::middleware('auth')->group(function () {
+    Route::get('/thanh-toan', [CheckoutController::class, 'form'])->name('checkout.form');
+    Route::post('/thanh-toan', [CheckoutController::class, 'place'])->name('checkout.place');
+});
 Route::get('/dat-hang-thanh-cong/{order}', [CheckoutController::class, 'success'])
     ->name('checkout.success');
 
@@ -108,6 +110,16 @@ Route::post('/checkout/coupon', [CheckoutController::class, 'applyCoupon'])
     ->name('checkout.coupon.apply');
 Route::delete('/checkout/coupon', [CheckoutController::class, 'removeCoupon'])
     ->name('checkout.coupon.remove');
+
+
+// Order history (customer)
+Route::middleware('auth')->group(function () {
+    Route::get('/don-hang-cua-toi', [CheckoutController::class, 'myOrders'])
+        ->name('orders.my');
+
+    Route::get('/don-hang/{order}', [CheckoutController::class, 'showOrder'])
+        ->name('orders.show');
+});
 
 /*
 |--------------------------------------------------------------------------
