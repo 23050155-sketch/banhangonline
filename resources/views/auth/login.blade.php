@@ -2,23 +2,58 @@
 <html lang="vi">
 <head>
   <meta charset="utf-8">
-  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đăng nhập</title>
+  <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
 </head>
 <body>
-<h1>Login</h1>
+  <div class="auth">
+    <div class="card">
+      <div class="card-head">
+        <h1 class="title">Đăng nhập</h1>
+        <p class="sub">Vào mua sắm thoi nào 🛒</p>
+      </div>
 
-@if(session('success')) <p style="color:green">{{ session('success') }}</p> @endif
-@if(session('error')) <p style="color:red">{{ session('error') }}</p> @endif
+      <div class="card-body">
+        @if(session('success'))
+          <div class="alert success">{{ session('success') }}</div>
+        @endif
+        @if(session('error'))
+          <div class="alert error">{{ session('error') }}</div>
+        @endif
 
-<form method="POST" action="{{ route('login.post') }}">
-  @csrf
-  <p>Email</p>
-  <input name="email" type="email" value="{{ old('email') }}" required>
+        @if($errors->any())
+          <ul class="ul-errors">
+            @foreach($errors->all() as $e) <li>{{ $e }}</li> @endforeach
+          </ul>
+        @endif
 
-  <p>Password</p>
-  <input name="password" type="password" required>
+        <form class="form" method="POST" action="{{ route('login.post') }}">
+          @csrf
 
-  <button type="submit">Đăng nhập</button>
-</form>
+          <div class="field">
+            <label>Email</label>
+            <input class="input" name="email" type="email" value="{{ old('email') }}" required autocomplete="email">
+          </div>
+
+          <div class="field">
+            <label>Mật khẩu</label>
+            <input class="input" name="password" type="password" required autocomplete="current-password">
+          </div>
+
+          <div class="row">
+            <a class="link" href="{{ route('password.request') }}">Quên mật khẩu?</a>
+          </div>
+
+          <button class="btn" type="submit">Đăng nhập</button>
+
+          <p class="help">
+            Chưa có tài khoản?
+            <a href="{{ route('register') }}">Đăng ký</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
