@@ -49,12 +49,12 @@
                           </li>
                           <li class="nav-item">
                               <a href="{{ route('clothes.page') }}" class="nav-link {{ request()->routeIs('clothes.*') ? 'active' : '' }}">
-                                  Quần áo
+                                  Thời Trang
                               </a>
                           </li>
                           <li class="nav-item">
                               <a href="{{ route('cars.page') }}" class="nav-link {{ request()->routeIs('cars.*') ? 'active' : '' }}">
-                                  Lego
+                                  Phương Tiện
                               </a>
                           </li>
                           <li class="nav-item">
@@ -120,9 +120,8 @@
                     <ul class="footer-links">
                         <li><a href="dienthoai.html">Điện Thoại</a></li>
                         <li><a href="laptop.html">Laptop</a></li>
-                        <li><a href="quanao.html">Quần áo</a></li>
-                        <li><a href="lego.html">Lego</a></li>
-                        <li><a href="products.html">Hàng Nóng</a></li>
+                        <li><a href="quanao.html">Thời Trang</a></li>
+                        <li><a href="lego.html">Phương tiện</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">

@@ -1,0 +1,286 @@
+/* order_history.css */
+
+/* Page */
+.order-history-page{
+  padding: 36px 0;
+  min-height: 70vh;
+  position: relative;
+}
+
+.order-history-page .container{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Header title */
+.page-header{
+  max-width: 1000px;
+  margin: 0 auto 18px;
+  text-align: left;
+}
+
+.page-header h1{
+  margin: 0 0 6px;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--dark);
+}
+
+.page-header p{
+  margin: 0;
+  color: var(--gray);
+}
+
+/* List container */
+.orders-container{
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Card */
+.order-card{
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.06);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.order-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+}
+
+/* Card header */
+.order-card-header{
+  background: rgba(0,0,0,0.03);
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.order-card-header .left{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.order-code{
+  font-weight: 900;
+  letter-spacing: .2px;
+  color: var(--dark);
+  font-size: 16px;
+}
+
+.order-date{
+  color: var(--gray);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Status pill base */
+.order-status{
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+/* Status pills (match status class từ my.blade.php) */
+.status-cho-xu-ly,
+.status-dang-xu-ly{
+  color: #d19a09;
+  background: rgba(218,165,32,0.14);
+}
+
+.status-hoan-thanh{
+  color: #2e7d32;
+  background: rgba(143,188,143,0.16);
+}
+
+.status-da-huy{
+  color: #e74c3c;
+  background: rgba(231,76,60,0.14);
+}
+
+/* Body */
+.order-card-body{
+  padding: 16px 18px 18px;
+}
+
+/* Meta grid */
+.order-meta{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.meta-item{
+  background: rgba(0,0,0,0.03);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 12px;
+  padding: 12px 12px;
+}
+
+.meta-item .label{
+  display: block;
+  font-size: 12px;
+  color: var(--gray);
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.meta-item .value{
+  display: block;
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--dark);
+}
+
+.meta-item .value.price{
+  color: var(--primary);
+}
+
+/* Actions */
+.order-actions{
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.order-actions .btn{
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+}
+
+/* nếu public.css đã có .btn-primary/.btn-secondary thì vẫn ok,
+   đây là fallback nhẹ để đảm bảo đẹp */
+.order-actions .btn.btn-primary{
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.10);
+  border: none;
+}
+.order-actions .btn.btn-primary:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 14px 24px rgba(0,0,0,0.14);
+}
+
+.order-actions .btn.btn-secondary{
+  background: #fff;
+  color: var(--dark);
+  border: 1px solid rgba(0,0,0,0.12);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+}
+.order-actions .btn.btn-secondary:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 22px rgba(0,0,0,0.10);
+}
+
+/* Empty state */
+.empty-state{
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 64px 20px;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 18px;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.06);
+}
+
+.empty-state i{
+  font-size: 58px;
+  color: var(--accent);
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+
+.empty-state h3{
+  color: var(--dark);
+  margin: 0 0 8px;
+  font-weight: 900;
+}
+
+.empty-state p{
+  color: var(--gray);
+  margin: 0 0 18px;
+}
+
+.empty-state .btn{
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 900;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Loading */
+.loading{
+  text-align: center;
+  padding: 40px 18px;
+  color: var(--gray);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px){
+  .order-history-page{ padding: 24px 0; }
+
+  .page-header h1{ font-size: 22px; }
+
+  .order-card-header{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .order-meta{
+    grid-template-columns: 1fr;
+  }
+
+  .order-actions{
+    justify-content: stretch;
+  }
+
+  .order-actions .btn{
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 420px){
+  .order-card-header,
+  .order-card-body{
+    padding: 14px 14px;
+  }
+
+  .order-code{ font-size: 15px; }
+  .order-date{ font-size: 12.5px; }
+}
