@@ -84,11 +84,15 @@ Route::post('/products/{product}/reviews', [ReviewController::class, 'store'])
 | Cart
 |--------------------------------------------------------------------------
 */
+// Cart
 Route::get('/gio-hang', [CartController::class, 'index'])->name('cart.index');
-Route::post('/gio-hang/them/{product}', [CartController::class, 'add'])->name('cart.add');
-Route::post('/gio-hang/cap-nhat/{product}', [CartController::class, 'update'])->name('cart.update');
-Route::delete('/gio-hang/xoa/{product}', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/gio-hang/them/{product:slug}', [CartController::class, 'add'])->name('cart.add');
+
+Route::post('/gio-hang/cap-nhat/{product:slug}', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/gio-hang/xoa/{product:slug}', [CartController::class, 'remove'])->name('cart.remove');
+
 Route::delete('/gio-hang/xoa-het', [CartController::class, 'clear'])->name('cart.clear');
+
 
 /*
 |--------------------------------------------------------------------------
