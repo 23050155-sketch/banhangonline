@@ -1,0 +1,155 @@
+/* HOME PRODUCTS */
+.home-products { padding: 34px 0; }
+.section-head { display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin-bottom:14px; }
+.section-title { margin:0; font-size:22px; }
+.section-sub { margin:0; opacity:.75; font-size:13px; }
+
+.product-grid-home{
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap:16px;
+}
+
+.product-card-home{
+  display:block;
+  background:#fff;
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:14px;
+  overflow:hidden;
+  text-decoration:none;
+  color:inherit;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.product-card-home:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+.thumb{ position:relative; aspect-ratio: 4 / 3; background:#f5f5f7; }
+.thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+.no-img{ width:100%; height:100%; display:flex; align-items:center; justify-content:center; opacity:.6; }
+
+.badge{
+  position:absolute; left:10px; top:10px;
+  font-size:12px; padding:6px 10px;
+  border-radius:999px;
+  color:#fff;
+  backdrop-filter: blur(6px);
+}
+.badge-featured{ background: rgba(79,124,255,.95); }
+.badge-hot{ background: rgba(255,77,79,.95); }
+.badge-best{ background: rgba(46,204,113,.95); }
+
+.info{ padding:12px; }
+.name{ font-size:14px; margin:0 0 8px; line-height:1.25; height: 36px; overflow:hidden; }
+.meta{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+.chip{
+  font-size:12px;
+  padding:5px 8px;
+  border-radius:999px;
+  background: rgba(0,0,0,.05);
+}
+.price{ font-size:16px; font-weight:700; }
+
+.empty{ opacity:.7; }
+
+/* Responsive */
+@media (max-width: 1100px){
+  .product-grid-home{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+@media (max-width: 800px){
+  .product-grid-home{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 480px){
+  .product-grid-home{ grid-template-columns: 1fr; }
+}
+
+
+
+
+/* =======================
+   SECTION HEAD (GLOBAL)
+   ======================= */
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.section-head.center {
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.section-sub {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #888;
+}
+
+/* button "xem tất cả" */
+.section-head .btn.ghost {
+  white-space: nowrap;
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .section-head.center {
+    align-items: center;
+  }
+}
+
+
+
+/* Title giữa, nút vẫn phải */
+.section-head.keep-right{
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end; /* đẩy nút qua phải */
+  gap: 12px;
+}
+
+.section-head.keep-right .head-center{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+/* mobile: cho nó xếp dọc lại cho dễ nhìn */
+@media (max-width: 768px){
+  .section-head.keep-right{
+    position: static;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .section-head.keep-right .head-center{
+    position: static;
+    transform: none;
+  }
+}
+
+
+/* canh giữa brand + view chip */
+.meta{
+  justify-content: center;
+}
+
+/* nếu muốn tên & giá cũng ra giữa cho đồng bộ */
+.info{ text-align: center; }

@@ -64,8 +64,14 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 | Products (PUBLIC – khách hàng)
 |--------------------------------------------------------------------------
 */
-Route::get('/products/{product}', [PublicProductController::class, 'show'])
+Route::get('/products/{product:slug}', [PublicProductController::class, 'show'])
     ->name('products.show');
+
+Route::get('/noi-bat', [PublicController::class, 'featuredPage'])->name('products.featured');
+Route::get('/hot', [PublicController::class, 'hotPage'])->name('products.hot');
+Route::get('/ban-chay', [PublicController::class, 'bestPage'])->name('products.best');
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -182,24 +188,20 @@ Route::prefix('admin')
     });
 
 
-    Route::get('/trangchu', function () {
-        return view('home');
-    })->name('home');
-
-
+    
     Route::get('/lien-he', function () {
         return view('public.contact');
     })->name('contact');
 
 
-
+    Route::get('/trangchu', [PublicController::class, 'home'])->name('home');
     Route::get('/phones',  [PublicController::class, 'phones'])->name('phones.page');
     Route::get('/laptops', [PublicController::class, 'laptops'])->name('laptops.page');
     Route::get('/clothes', [PublicController::class, 'clothes'])->name('clothes.page');
     Route::get('/cars',    [PublicController::class, 'cars'])->name('cars.page');
 
 
-
+    
 
 
 

@@ -2401,3 +2401,21 @@ textarea[name="content"]:focus {
 }
 
 
+
+
+/* =======================
+   BRAND SECTION
+   ======================= */
+.brand-section {
+  margin-top: 32px;
+}
+
+.brand-section .section-head {
+  align-items: flex-end;
+}
+
+.brand-section .section-title {
+  font-size: 20px;
+}
+
+
