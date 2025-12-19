@@ -140,4 +140,45 @@ class PublicController extends Controller
     }
 
 
+
+    public function search(Request $request)
+    {
+        $q = trim((string) $request->query('q', ''));
+        $category = $request->query('category'); // có thể là id hoặc slug
+
+        $categories = Category::query()
+            ->orderBy('name')
+            ->get();
+
+        $productsQuery = Product::query()
+            ->where('status', 1); // nếu bạn có cột status
+
+        // tìm theo tên (và có thể mở rộng sang brand)
+        if ($q !== '') {
+            $productsQuery->where(function ($sub) use ($q) {
+                $sub->where('name', 'like', "%{$q}%")
+                    ->orWhere('brand', 'like', "%{$q}%");
+            });
+        }
+
+        // lọc theo category (ưu tiên slug nếu bạn dùng slug)
+        if (!empty($category)) {
+            // nếu category là số -> id
+            if (ctype_digit((string) $category)) {
+                $productsQuery->where('category_id', (int) $category);
+            } else {
+                // nếu category là slug -> join qua categories
+                $productsQuery->whereHas('category', function ($c) use ($category) {
+                    $c->where('slug', $category);
+                });
+            }
+        }
+
+        $products = $productsQuery
+            ->latest()
+            ->paginate(12)
+            ->withQueryString();
+
+        return view('public.search', compact('products', 'categories', 'q', 'category'));
+    }
 }

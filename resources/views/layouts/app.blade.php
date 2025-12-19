@@ -93,10 +93,20 @@
     <!-- Search -->
     <div class="search-section">
         <div class="container">
-            <div class="search-container">
-                <input class="search-input" placeholder="Tìm kiếm sản phẩm...">
-                <button class="search-btn">Tìm kiếm</button>
-            </div>
+            <form class="search-container" action="{{ route('search') }}" method="GET">
+                <input class="search-input" name="q" value="{{ request('q') }}" placeholder="Tìm kiếm sản phẩm...">
+
+                <select name="category" class="search-input search-select">
+                    <option value="">Tất cả danh mục</option>
+                    @foreach(($globalCategories ?? []) as $c)
+                    <option value="{{ $c->id }}" {{ (string)request('category') === (string)$c->id ? 'selected' : '' }}>
+                        {{ $c->name }}
+                    </option>
+                    @endforeach
+                </select>
+
+                <button class="search-btn" type="submit">Tìm kiếm</button>
+            </form>
         </div>
     </div>
 </header>

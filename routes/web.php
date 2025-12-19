@@ -70,7 +70,7 @@ Route::get('/products/{product:slug}', [PublicProductController::class, 'show'])
 Route::get('/noi-bat', [PublicController::class, 'featuredPage'])->name('products.featured');
 Route::get('/hot', [PublicController::class, 'hotPage'])->name('products.hot');
 Route::get('/ban-chay', [PublicController::class, 'bestPage'])->name('products.best');
-
+Route::get('/search', [PublicController::class, 'search'])->name('search');
 
 
 /*
