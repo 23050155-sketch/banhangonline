@@ -1750,3 +1750,18 @@ ProductManager.prototype.buildCategoryHierarchy = function(products) {
     
     return hierarchy;
 };
+
+
+
+//Mô tả
+const desc = document.getElementById('pdDesc');
+    const toggle = document.getElementById('toggleDesc');
+
+    if (desc && toggle) {
+        toggle.addEventListener('click', () => {
+            desc.classList.toggle('collapsed');
+            toggle.innerText = desc.classList.contains('collapsed')
+                ? 'Xem thêm ↓'
+                : 'Thu gọn ↑';
+        });
+    }

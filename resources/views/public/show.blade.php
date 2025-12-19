@@ -92,10 +92,13 @@
                 {{-- Mô tả --}}
                 <div class="pd-desc">
                     <h3>Mô tả sản phẩm</h3>
-                    <div class="pd-desc-text">
+
+                    <div class="pd-desc-text scroll">
                         {!! nl2br(e($product->description ?? 'Chưa có mô tả cho sản phẩm này.')) !!}
                     </div>
+
                 </div>
+
             </div>
         </div>
 
