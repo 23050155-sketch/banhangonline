@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-
-use Illuminate\Support\Facades\View;
-use App\Models\Category;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Schema;
+use App\Models\Category;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +22,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::share('globalCategories', Category::orderBy('name')->get());
+        // ❗ Build / config:cache / migrate chưa có DB thì bỏ qua
+        if (!Schema::hasTable('categories')) {
+            return;
+        }
+
+        try {
+            View::share(
+                'globalCategories',
+                Category::orderBy('name')->get()
+            );
+        } catch (\Throwable $e) {
+            // ignore để không chết build
+        }
     }
 }
