@@ -4,36 +4,26 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Schema;
 use App\Models\Category;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
-        // ❗ Build / config:cache / migrate chưa có DB thì bỏ qua
-        if (!Schema::hasTable('categories')) {
+        // 🚫 ĐANG CHẠY CONSOLE (build, config:cache, migrate) → BỎ QUA
+        if ($this->app->runningInConsole()) {
             return;
         }
 
-        try {
-            View::share(
-                'globalCategories',
-                Category::orderBy('name')->get()
-            );
-        } catch (\Throwable $e) {
-            // ignore để không chết build
-        }
+        // 🌐 Chỉ chạy khi request web thật sự
+        View::share(
+            'globalCategories',
+            Category::orderBy('name')->get()
+        );
     }
 }
