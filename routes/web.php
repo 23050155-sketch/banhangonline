@@ -27,7 +27,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ReviewAdminController;
 use App\Http\Controllers\Admin\DashboardController;
-
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 /*
 |--------------------------------------------------------------------------
 | Home
@@ -207,3 +207,11 @@ Route::prefix('admin')
     Route::get('/my-orders', [OrderController::class, 'myOrders'])->name('orders.history');
 });
 
+
+Route::middleware(['web', 'admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
+    });

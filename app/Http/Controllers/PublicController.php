@@ -58,7 +58,7 @@ class PublicController extends Controller
 
     public function cars(Request $request)
     {
-        return $this->categoryPage($request, 'o-to', 'public.cars');
+        return $this->categoryPage($request, 'phuong-tien', 'public.cars');
     }
 
     // ====== Core logic (group brand + optional filter) ======

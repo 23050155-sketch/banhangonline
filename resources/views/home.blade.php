@@ -5,50 +5,65 @@
 @section('content')
     <!-- HERO -->
     <section class="hero-slider">
-        <div class="container">
-            <div class="slider-container">
-                <div class="slider">
+    <div class="container">
+        <div class="slider-container" id="heroSlider" data-interval="3500">
+        <div class="slider">
 
-                    <!-- Slide 1 -->
-                    <div class="slide active">
-                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1600&q=80">
-                        <div class="slide-content">
-                            <h3>Laptop Chính Hãng</h3>
-                            <p>Học tập - Làm việc - Gaming</p>
-                            <a href="{{ route('laptops.page') }}" class="btn btn-accent">
-                                Xem Laptop
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Slide 2 -->
-                    <div class="slide">
-                        <img src="https://images.unsplash.com/photo-1520975958225-4d934f1a07a8?auto=format&fit=crop&w=1600&q=80">
-                        <div class="slide-content">
-                            <h3>Thời Trang Trendy</h3>
-                            <p>Quần áo mới mỗi tuần</p>
-                            <a href="{{ route('clothes.page') }}" class="btn btn-accent">
-                                Xem Quần Áo
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Slide 3 -->
-                    <div class="slide">
-                        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80">
-                        <div class="slide-content">
-                            <h3>Xe Hơi & Ô Tô</h3>
-                            <p>Chọn xe theo nhu cầu</p>
-                            <a href="{{ route('cars.page') }}" class="btn btn-accent">
-                                Xem Xe
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
+            <div class="slide active">
+            <img src="https://image.viettimes.vn/w800/Uploaded/2025/bqmvlcvo/2023_10_21/capture-7654.png" alt="Điện thoại thông minh" />
+            <div class="slide-content">
+                <h3>Điện Thoại Thông Minh</h3>
+                <p>Mới nhất 2025</p>
+                <a href="#" class="btn btn-accent">Khám phá ngay</a>
             </div>
+            </div>
+
+            <div class="slide">
+            <img src="https://images.pexels.com/photos/18105/pexels-photo.jpg" alt="Giảm giá hot" />
+            <div class="slide-content">
+                <h3>Sale cuối tuần</h3>
+                <p>Giảm tới 30% cho nhiều mẫu</p>
+                <a href="#" class="btn btn-accent">Xem ưu đãi</a>
+            </div>
+            </div>
+
+            <div class="slide">
+            <img src="https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_2__9_254.png" alt="Hàng mới" />
+            <div class="slide-content">
+                <h3>Hàng mới về</h3>
+                <p>Full box - chính hãng</p>
+                <a href="#" class="btn btn-accent">Xem ngay</a>
+            </div>
+            </div>
+
+            <div class="slide">
+            <img src="https://images.unsplash.com/photo-1512499617640-c2f999098c01?auto=format&fit=crop&w=1600&q=80" alt="Trả góp" />
+            <div class="slide-content">
+                <h3>Trả góp 0%</h3>
+                <p>Thủ tục nhanh, duyệt lẹ</p>
+                <a href="#" class="btn btn-accent">Tìm hiểu</a>
+            </div>
+            </div>
+
         </div>
+
+        <button class="slider-btn prev-btn" type="button" aria-label="Previous">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="slider-btn next-btn" type="button" aria-label="Next">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+
+        <div class="slider-dots">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
+            <span class="dot" data-index="3"></span>
+        </div>
+        </div>
+    </div>
     </section>
+
 
     <!-- CATEGORIES -->
     <section class="categories">
@@ -242,4 +257,64 @@
             </div>
         </div>
     </section>
+@endsection
+@section('scripts')
+<script>
+(() => {
+  const root = document.getElementById('heroSlider');
+  if (!root) return;
+
+  const slides = Array.from(root.querySelectorAll('.slide'));
+  const dots = Array.from(root.querySelectorAll('.dot'));
+  const prevBtn = root.querySelector('.prev-btn');
+  const nextBtn = root.querySelector('.next-btn');
+
+  if (slides.length <= 1) return;
+
+  let index = slides.findIndex(s => s.classList.contains('active'));
+  if (index < 0) index = 0;
+
+  const intervalMs = parseInt(root.dataset.interval || '3500', 10);
+  let timer = null;
+
+  const show = (i) => {
+    slides[index].classList.remove('active');
+    dots[index]?.classList.remove('active');
+
+    index = (i + slides.length) % slides.length;
+
+    slides[index].classList.add('active');
+    dots[index]?.classList.add('active');
+  };
+
+  const next = () => show(index + 1);
+  const prev = () => show(index - 1);
+
+  const start = () => {
+    stop();
+    timer = setInterval(next, intervalMs);
+  };
+
+  const stop = () => {
+    if (timer) clearInterval(timer);
+    timer = null;
+  };
+
+  prevBtn?.addEventListener('click', () => { prev(); start(); });
+  nextBtn?.addEventListener('click', () => { next(); start(); });
+
+  dots.forEach(d => {
+    d.addEventListener('click', () => {
+      const i = parseInt(d.dataset.index || '0', 10);
+      show(i);
+      start();
+    });
+  });
+
+  root.addEventListener('mouseenter', stop);
+  root.addEventListener('mouseleave', start);
+
+  start();
+})();
+</script>
 @endsection
